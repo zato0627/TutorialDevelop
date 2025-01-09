@@ -5,3 +5,7 @@ label{
 	width: 8em;
 	line-heigth: 150%;
 }
+
+.err{
+	color: red;
+}

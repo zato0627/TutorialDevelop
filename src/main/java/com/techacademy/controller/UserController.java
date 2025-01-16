@@ -79,7 +79,6 @@ public class UserController {
 	public String postUser(@Validated User user, BindingResult res, Model model) {
 		if(res.hasErrors()) {
 			Integer id = null;
-			//model.addAttribute("user", user);
 			return getUser(id, user, model);
 		}
 		//User登録

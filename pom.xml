@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.techacademy</groupId>
-	<artifactId>TutorialDevalop</artifactId>
+	<artifactId>TutorialDevelop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TutorialDevalop</name>
 	<description>the project for tutoeial of Develop</description>

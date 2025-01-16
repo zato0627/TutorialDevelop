@@ -34,7 +34,7 @@ public class UserController {
 		return "user/list";
 	}
 
-	// ----- User登録機能、追加1:ここから -----
+	// ----- User登録機能 -----
     /** User登録画面を表示 */
 	@GetMapping("/register")
 	public String getRegister(@ModelAttribute User user) {
@@ -42,7 +42,7 @@ public class UserController {
 		return "user/register";
 	}
 
-	// ----- 入力チェック　変更ここから -----
+	// ----- 入力チェック　 -----
 	/** User登録処理 */
 	@PostMapping("/register")
 	public String postRegister(@Validated User user, BindingResult res, Model model) {
@@ -55,32 +55,41 @@ public class UserController {
 		// 一覧画面にリダイレクト
 		return "redirect:/user/list";
 	}
-	// ----- 変更ここまで -----
+	// ----- 入力チェックここまで -----
 
-
-	// ----- 追加1:ここまで -----
-
-	// ----- User更新機能、追加2:ここから -----
+	// ----- User更新機能 -----
     /** User更新画面を表示 */
 	@GetMapping("/update/{id}/")
-	public String getUser(@PathVariable("id") Integer id, Model model) {
-		// Modelに登録
-		model.addAttribute("user", service.getUser(id));
-		// User更新画面に遷移
-		return "user/update";
+	public String getUser(@PathVariable("id") Integer id, User user, Model model) {
+		if(id != null) {
+			// Modelに登録
+			model.addAttribute("user", service.getUser(id));
+			// User更新画面に遷移
+			return "user/update";
+		}else {
+
+			model.addAttribute("user", user);
+
+			return "user/update";
+		}
 	}
 
 	/** User更新処理 */
 	@PostMapping("/update/{id}/")
-	public String postUser(User user) {
+	public String postUser(@Validated User user, BindingResult res, Model model) {
+		if(res.hasErrors()) {
+			Integer id = null;
+			//model.addAttribute("user", user);
+			return getUser(id, user, model);
+		}
 		//User登録
 		service.saveUser(user);
 		//一覧画面にリダイレクト
 		return "redirect:/user/list";
 	}
-	// ----- 追加2:ここまで -----
+	// -----User更新機能 ここまで -----
 
-	// ----- User削除機能、追加3:ここから -----
+	// ----- User削除機能 -----
     /** User削除処理 */
 	@PostMapping(path="list", params="deleteRun")
 	public String deleteRun(@RequestParam(name="idck") Set<Integer> idck, Model model) {
@@ -90,5 +99,5 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
-	// ----- 追加:ここまで -----
+	// ----- ここまで -----
 }
